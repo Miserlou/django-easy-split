@@ -1,0 +1,12 @@
+{% if client_side_experiments or not request.session.verified_human %}
+  <script type="text/javascript" charset="utf-8">
+    {% if not request.session.verified_human %}
+      experiments.confirm_human();
+    {% endif %}
+    {% if client_side_experiments %}
+      {% for experiment, group in client_side_experiments.items %}
+        experiments.record_enrollment("{{ experiment|escapejs }}", "{{ group|escapejs }}");
+      {% endfor %}
+    {% endif %}
+  </script>
+{% endif %}

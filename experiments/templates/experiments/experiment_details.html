@@ -1,0 +1,116 @@
+{% extends "admin/base_site.html" %}
+
+{% block extrastyle %}
+  <style type="text/css">
+    h2, h3 {
+      margin: 15px 0 10px 0;
+    }
+    td {
+      white-space: nowrap;
+    }
+    .no-report {
+      font-style: italic;
+      text-align: center;
+    }
+    th, td, thead th:first-child {
+      border-left: 1px solid #ddd !important;
+    }
+    table {
+      border-right: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+    }
+
+    .positive_improvement {
+      font-weight: bold;
+      color: green;
+    }
+    .negative_improvement {
+      font-weight: bold;
+      color: red;
+    }
+
+    .low_confidence {
+      color: #333;
+    }
+    .medium_confidence {
+      color: #ff9900;
+      font-weight: bold;
+    }
+    .high_confidence {
+      color: green;
+      font-weight: bold;
+    }
+    
+    .low_confidence:after {
+      content: '  ✗';
+    }
+    .medium_confidence:after {
+      content: '  ✓';
+    }
+    .high_confidence:after {
+      content: '  ✔';
+    }
+
+    th.group {
+      text-align: center;
+    }
+  </style>
+{% endblock %}
+
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url experiments_list_experiments %}">Experiments</a> &rsaquo; {{ experiment.name }}</div>{% endblock %}
+
+{% block content %}
+  <h2>Experiment Properties</h2>
+  <table>
+    <thead>
+      <tr>
+	<th>Property</th>
+	<th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row1">
+	<th scope="row">Experiment Name</th>
+	<td>{{ experiment.name }}</td>
+      </tr>
+      <tr class="row2">
+	<th scope="row">Status</th>
+	<td>
+          {% ifequal  experiment.state  experiment_states.enabled %}
+          Enabled
+          {% endifequal %}
+          {% ifequal  experiment.state  experiment_states.disabled %}
+          Disabled
+          {% endifequal %}
+          {% ifequal  experiment.state  experiment_states.promoted %}
+          Promoted
+          {% endifequal %}
+	</td>
+      </tr>
+      <tr class="row1">
+	<th scope="row">Start Date</th>
+	<td>{{ experiment.start_date }}</td>
+      </tr>
+      <tr class="row2">
+	<th scope="row">End Date</th>
+	<td>{{ experiment.end_date }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Data</h2>
+  {% if daily_data %}
+    {% include "experiments/conversion_summary.html" %}
+    {% include "experiments/engagement_summary.html" %}
+
+    {% include "experiments/conversion_details.html" %}
+    {% include "experiments/engagement_details.html" %}
+  {% else %}
+    {% if experiment.start_date %}
+      <p>The experiment has been started, but no reports have been generated. If the experiment started today, this is normal - wait until tomorrow. Otherwise, verify that the scheduled report generator is running properly.</p>
+    {% else %}
+      <p>The experiment has not been started. Please start the experiment and wait a day for data to be gathered.</p>
+    {% endif %}
+  {% endif %}
+{% endblock %}
+

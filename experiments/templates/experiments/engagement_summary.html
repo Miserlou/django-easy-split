@@ -1,0 +1,42 @@
+<h3>Engagement Summary</h3>
+{% if daily_data.0.engagement_data %}
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Control Group</th>
+      <th>Test Group</th>
+      <th>Improvement</th>
+      <th>Confidence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="row1">
+      <th scope="row">Participants</th>
+      <td>{{ daily_data.0.engagement_data.control_group_size }}</td>
+      <td>{{ daily_data.0.engagement_data.test_group_size }}</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="row2">
+      <th scope="row">Engagement Score</th>
+      <td>{{ daily_data.0.engagement_data.control_group_score }}</td>
+      <td>{{ daily_data.0.engagement_data.test_group_score }}</td>
+      <td>
+        {% with daily_data.0.engagement_data.test_group_improvement as improvement %}
+          {% include "experiments/improvement_value.html" %}
+        {% endwith %}
+      </td>
+      <td>
+        {% with daily_data.0.engagement_data.confidence as confidence %}
+          {% include "experiments/confidence_value.html" %}
+        {% endwith %}
+      </td>
+    </tr>
+  </tbody>
+</table>
+{% else %}
+<p>
+  No engagement report generated for {{ daily_data.0.date }}.
+</p>
+{% endif %}

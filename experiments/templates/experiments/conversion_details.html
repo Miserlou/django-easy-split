@@ -1,0 +1,97 @@
+<h3>Conversion Details</h3>
+
+<table class="conversion_data">
+  <thead>
+    <tr>
+      <th rowspan="2" class="date group_first group_last">Date</th>
+      <th colspan="2" class="group">Participants</th>
+      {% for goal_name,goal_data in daily_data.0.conversion_data.goal_types.items %}
+      <th colspan="4" class="group">{{ goal_name }}</th>
+      {% endfor %}
+      <th colspan="4" class="group"><em>Any</em></th>
+    </tr>
+    <tr>
+      <th class="control group_first">Control</th>
+      <th class="test group_last">Test</th>
+      {% for goal_name,goal_data in daily_data.0.conversion_data.goal_types.items %}
+      <th class="control group_first">Control</th>
+      <th class="test">Test</th>
+      <th class="improvement">Improvement</th>
+      <th class="confidence group_last">Confidence</th>
+      {% endfor %}
+      <th class="control group_first">Control</th>
+      <th class="test">Test</th>
+      <th class="improvement">Improvement</th>
+      <th class="confidence group_last">Confidence</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for report in daily_data %}
+    <tr class="{% cycle "row1" "row2" %}">
+      <th scope="row" class="date group_first group_last">{{ report.date }}</th>
+      {% if report.conversion_data %}
+      <td class="control group_first">{{ report.conversion_data.control_group_size }}</td>
+      <td class="test group_last">{{ report.conversion_data.test_group_size }}</td>
+      {% for goal_name,goal_data in report.conversion_data.goal_types.items %}
+      {% if goal_data %}
+      <td class="control group_first">
+        {% if report.conversion_data.control_group_size %}      
+        {{ goal_data.control_count }} ({{ goal_data.control_rate|floatformat:1 }} %)
+        {% else %}
+        N/A
+        {% endif %}
+      </td>
+      <td class="test">
+        {% if report.conversion_data.test_group_size %}         
+        {{ goal_data.test_count }} ({{ goal_data.test_rate|floatformat:1 }} %)
+        {% else %}
+        N/A
+        {% endif %}
+      </td>
+      <td class="improvement">
+        {% with goal_data.improvement as improvement %}
+          {% include "experiments/improvement_value.html" %}
+        {% endwith %}
+      </td>
+      <td class="confidence group_last">
+        {% with goal_data.confidence as confidence %}
+          {% include "experiments/confidence_value.html" %}
+        {% endwith %}
+      </td>
+      {% else %}
+      <td colspan="4" class="group_first group_last no-report"><em>No data.</em></td>
+      {% endif %}
+      {% endfor %}
+      <td class="control group_first">
+        {% if report.conversion_data.control_group_size %}        
+        {{ report.conversion_data.totals.control_count }} ({{ report.conversion_data.totals.control_rate|floatformat:1 }} %)
+        {% else %}
+        N/A
+        {% endif %}
+      </td>
+      <td class="test">
+        {% if report.conversion_data.test_group_size %}   
+        {{ report.conversion_data.totals.test_count }} ({{ report.conversion_data.totals.test_rate|floatformat:1 }} %)
+        {% else %}
+        N/A
+        {% endif %}
+      </td>
+      <td class="improvement">
+        {% with report.conversion_data.totals.improvement as improvement %}
+          {% include "experiments/improvement_value.html" %}
+        {% endwith %}
+      </td>
+      <td class="confidence group_last">
+        {% with report.conversion_data.totals.confidence as confidence %}
+          {% include "experiments/confidence_value.html" %}
+        {% endwith %}
+      </td>
+      {% else %}
+      <td colspan="0" class="no-report">
+        No report available for this date.
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

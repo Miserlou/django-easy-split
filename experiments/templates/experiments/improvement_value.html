@@ -1,0 +1,15 @@
+{% load smartif %}
+
+{% ifnotequal improvement None %}
+  {% if improvement < 0 %}
+   <span class="negative_improvement">
+    {{ improvement|stringformat:"d" }} %
+   </span>
+  {% else %}
+   <span class="positive_improvement">
+    {{ improvement|stringformat:"d" }} %
+   </span>
+  {% endif %}
+{% else %}
+N/A
+{% endifnotequal %}

@@ -1,0 +1,55 @@
+{% extends "admin/base_site.html" %}
+
+{% block breadcrumbs %}<div class="breadcrumbs">Experiments</div>{% endblock %}
+
+{% block extrastyle %}
+  <style type="text/css">
+    td, th, thead th:first-child {
+    border-left: 1px solid #ddd !important;
+    }
+    table {
+    border-right: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h1>Select experiment to view</h1>
+  <div>
+    <table>
+      <thead>
+	<tr>
+	  <th>Name</th>
+	  <th>Status</th>
+	  <th>Start Date</th>
+	  <th>End Date</th>
+	</tr>
+      </thead>
+      <tbody>
+	{% for experiment in experiments %}
+	  <tr class="{% cycle "row1" "row2" %}">    
+	    <th>
+	      <a href="{% url experiments_experiment_details experiment.name %}">
+		{{ experiment.name }}
+	      </a>
+	    </th>
+	    <td>
+	      {% ifequal experiment.state experiment_states.enabled %}
+		Enabled
+	      {% endifequal %}
+	      {% ifequal experiment.state experiment_states.disabled %}
+		Disabled
+	      {% endifequal %}
+	      {% ifequal experiment.state experiment_states.promoted %}
+		Promoted
+	      {% endifequal %}
+            </td>
+	    <td>{{ experiment.start_date }}</td>
+	    <td>{{ experiment.end_date }}</td>
+	  </tr>
+	{% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
