@@ -1,0 +1,41 @@
+<h3>Engagement Details</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Report Date</th>
+      <th>Control Group Size</th>
+      <th>Control Group Score</th>
+      <th>Test Group Size</th>
+      <th>Test Group Score</th>
+      <th>Test Group Improvement</th>
+      <th>Confidence</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for report in daily_data %}
+    <tr class="{% cycle "row1" "row2" %}">
+      <th scope="row">{{ report.date }}</th>
+      {% if report.engagement_data %}
+      <td>{{ report.engagement_data.control_group_size }}</td>
+      <td>{{ report.engagement_data.control_group_score }}</td>
+      <td>{{ report.engagement_data.test_group_size }}</td>
+      <td>{{ report.engagement_data.test_group_score }}</td>
+      <td>
+        {% with report.engagement_data.test_group_improvement as improvement %}
+          {% include "experiments/improvement_value.html" %}
+        {% endwith %}
+      </td>
+      <td>
+        {% with report.engagement_data.confidence as confidence %}
+          {% include "experiments/confidence_value.html" %}
+        {% endwith %}
+      </td>
+      {% else %}
+      <td colspan="6" class="no-report">
+        No report available for this date.
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

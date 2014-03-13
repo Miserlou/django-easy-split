@@ -1,0 +1,21 @@
+{% load smartif %}
+
+{% ifnotequal confidence None %}
+ {% if confidence >= 95 %}
+  <span class="high_confidence">
+   {{ confidence|stringformat:"d" }} %
+  </span>
+ {% endif %}
+ {% if confidence < 95 and confidence >= 90 %}
+  <span class="medium_confidence">
+   {{ confidence|stringformat:"d" }} %
+  </span>
+ {% endif %}
+ {% if confidence < 90 %}
+  <span class="low_confidence">
+   {{ confidence|stringformat:"d" }} %
+  </span>
+ {% endif %}
+{% else %}
+   N/A
+{% endifnotequal %}
