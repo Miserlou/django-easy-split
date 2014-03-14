@@ -2,17 +2,26 @@
 django-easy-split
 =================
 
-Easy split testing for Django.
+Easy split testing for Django!
+
+Stop guessing and start testing! With **django-easy-split**, you'll be able to scientifically prove which aspects of
+your site work better than others. Works great for testing copy, designs, styles, layouts, assets, and even pricing and feature sets.
+
+With just a few simple template tags, you'll be able to generate reports about how your experiments are performing.
 
 ## Features
 
 * Simple installation and usage
-* Statistical report generation
+* Statistical report generation using chi-squared tests (with optinal support for numypy/scipy)
 * Automatic bot exclusion
 
 # Installation and Basic Usage
 
-Getting started with **django-easy-split** is easy! Just install it, define your content to be tested and your goals, then sit back, wait for the data to roll in, then finally analyze and view your reports. You can do pretty much everything right from your templates, there's no need for you to ever creat your data models manually.
+Getting started with **django-easy-split** is easy!
+
+Just install it, define your content to be tested and your goals,
+then sit back, wait for the data to roll in, then finally analyze and view your reports. You can do pretty much
+everything right from your templates, there's no need for you to ever create your data models manually.
 
 0. Install django-easy-split
 
