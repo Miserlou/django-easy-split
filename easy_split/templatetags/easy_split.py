@@ -5,10 +5,10 @@ import logging
 l = logging.getLogger(__name__)
 
 from django import template
+from django.template.loader import render_to_string
 
-from kickflip.apps.easy_split.models import Experiment
-from kickflip.apps.easy_split.utils import WebUserFactory
-
+from easy_split.models import Experiment
+from easy_split.utils import WebUserFactory
 
 register = template.Library()
 
@@ -133,3 +133,14 @@ def clientsideexperiment(parser, token, user_factory=WebUserFactory()):
                 "{% clientsideexperiment experiment_name  %}")
     
     return ClientSideExperimentNode(experiment_name, user_factory)
+
+def split_js(values=None):
+    js_string = render_to_string("split_js.html", {} )
+    return js_string
+
+def goal(value):
+    magic_string = "<img src='/split/goal/%s' height='1' width='1' class='split_goal' />" % value
+    return magic_string
+
+register.simple_tag(split_js)
+register.simple_tag(goal)

@@ -63,25 +63,22 @@ everything right from your templates, there's no need for you to ever create you
     from easy_split.decorators import set_experiment_user
 
     @set_experiment_user
-    return render_to_response('split_me.html', {
-                                                  }, context_instance=RequestContext(request))
+    return render_to_response('split_me.html', {}, context_instance=RequestContext(request))
     ```
 
 5. Include the necessary bot-excluding JavaScript in your base HTML. No jQuery is required!:
 
     ```html
-    {% load split_js %}
+    {% load easy_split %}
 
     <head>
         {% split_js %}
     </head>
-
     ```
 
 6. Define your test content:
 
     ```html
-    {% load easy_split %}
 
     {% split try_or_buy control %}
     <a href="/payment/" class="btn btn-large btn-primary">
@@ -100,7 +97,7 @@ everything right from your templates, there's no need for you to ever create you
 7. Define your goals. The easiest way to do it is with an invisible pixel as shown here, or you can also do it programatically in your views.
 
     ```html
-    <img src="/split/goal/try_or_buy" height="1" width="1" style="display: none" />
+    {% goal try_or_buy %}
     ```
 
 8. Test it out! Make sure that all of your URLs work and that GoalRecords are being created in your database.
