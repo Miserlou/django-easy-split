@@ -128,4 +128,5 @@ purposes. Still, I'll be working in public for the most part, so we shall see.
 
 * Documentation, Packaging, Examples, Tests
 * Email reporting?
+* Automated, integrated testing queues.
 
