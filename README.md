@@ -94,7 +94,7 @@ everything right from your templates, there's no need for you to ever create you
 
     ```
 
-7. Define your goals. The easiest way to do it is with an invisible pixel as shown here, or you can also do it programatically in your views.
+7. Set up your goals. The easiest way to do it is with this simple tag put on your goal page (ex, on the post-payment page). You can also define them programatically in your views.
 
     ```html
     {% goal try_or_buy %}
