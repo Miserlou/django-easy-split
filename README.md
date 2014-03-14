@@ -5,9 +5,10 @@ django-easy-split
 Easy split testing for Django!
 
 Stop guessing and start testing! With **django-easy-split**, you'll be able to scientifically prove which aspects of
-your site work better than others. Works great for testing copy, designs, styles, layouts, assets, and even pricing and feature sets.
+your site convert better than others. Works great for testing copy, designs, styles, layouts, assets, and even pricing and feature sets.
 
-With just a few simple template tags, you'll be able to generate reports about how your experiments are performing.
+With just a few simple template tags, you'll be able to generate detailed reports about how visitors respond to various
+experimental aspects of your site.
 
 ## Features
 

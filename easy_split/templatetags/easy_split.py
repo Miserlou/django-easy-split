@@ -6,8 +6,9 @@ l = logging.getLogger(__name__)
 
 from django import template
 
-from easy_split.models import Experiment
-from easy_split.utils import WebUserFactory
+from kickflip.apps.easy_split.models import Experiment
+from kickflip.apps.easy_split.utils import WebUserFactory
+
 
 register = template.Library()
 
