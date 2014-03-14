@@ -30,7 +30,7 @@
 	{% for experiment in experiments %}
 	  <tr class="{% cycle "row1" "row2" %}">    
 	    <th>
-	      <a href="{% url "experiments_experiment_details" experiment.name %}">
+	      <a href="/admin/split/{{experiment.name}}/">
 		{{ experiment.name }}
 	      </a>
 	    </th>
