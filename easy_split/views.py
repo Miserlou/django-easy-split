@@ -39,10 +39,13 @@ def confirm_human(request):
     return HttpResponse(status=204)
 
 def record_or_create_goal(request, goal_name):
-    try:
-        goal_type = GoalType.objects.filter(name=goal_name)
+  
+    goal_type = GoalType.objects.filter(name=goal_name)
+
+    # We've seen this Goal before
+    if len(goal_type) > 0:
         GoalRecord.record(goal_name, WebUser(request))
-    except Exception, e:
+    else: # no we haven't
         goal_type = GoalType()
         goal_type.name = goal_name
         goal_type.save()

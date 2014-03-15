@@ -139,7 +139,7 @@ def split_js(values=None):
     return js_string
 
 def goal(value):
-    magic_string = "<img src='/split/goal/%s' height='1' width='1' class='split_goal' />" % value
+    magic_string = "<img src='/split/goal/%s/' height='1' width='1' class='split_goal' />" % value
     return magic_string
 
 register.simple_tag(split_js)
