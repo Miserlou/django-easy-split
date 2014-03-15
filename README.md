@@ -95,7 +95,6 @@ everything right from your templates, there's no need for you to ever create you
         Try it free!
     </a>
     {% endsplit %}
-
     ```
 
 7. Set up your goals. The easiest way to do it is with this simple tag put on your goal page (ex, on the post-payment page). You can also define them programatically in your views.
