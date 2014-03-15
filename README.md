@@ -100,7 +100,7 @@ everything right from your templates, there's no need for you to ever create you
 7. Set up your goals. The easiest way to do it is with this simple tag put on your goal page (ex, on the post-payment page). You can also define them programatically in your views.
 
     ```html
-    {% goal try_or_buy %}
+    {% goal "try_or_buy" %}
     ```
 
 8. Test it out! Make sure that all of your URLs work and that GoalRecords are being created in your database.
