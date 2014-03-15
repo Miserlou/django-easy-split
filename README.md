@@ -24,6 +24,8 @@ Just install it, define your content to be tested and your goals,
 then sit back, wait for the data to roll in, then finally analyze and view your reports. You can do pretty much
 everything right from your templates, there's no need for you to ever create your data models manually.
 
+#### Installation
+
 0. Install django-easy-split
 
     ```python
@@ -56,6 +58,8 @@ everything right from your templates, there's no need for you to ever create you
 
     url(r'^split/', include('easy_split.urls')),
     ```
+
+#### Usage
 
 4. Assign your visitors to experimental groups by wrapping your views with this decorator:
 
