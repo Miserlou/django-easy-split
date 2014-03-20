@@ -144,14 +144,11 @@ from easy_split.utils import WebUser
 
 def conversion_page(request):
 
-    # Record the converstion
     GoalRecord.record("my_experiment_name", WebUser(request))
-
     return render_to_response('success.html', {}, context_instance=RequestContext(request))
-
 ```
 
-And that's it!
+And that's it! **django-easy-split** is smart enough to create your Goal obejcts for you.
 
 
 ## Origins
