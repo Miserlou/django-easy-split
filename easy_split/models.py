@@ -40,15 +40,11 @@ class GoalRecord(models.Model):
         """
         Records a goal achievement for the experiment user.
         If the user does not have an anonymous visitor ID, does nothing.
-        If the goal name is not known, throws an Exception.
         """
         anonymous_id = experiment_user.get_anonymous_id()
         if anonymous_id:
             anonymous_visitor = AnonymousVisitor.objects.get(id=anonymous_id)
-            if getattr(settings, 'LEAN_AUTOCREATE_GOAL_TYPES', False):
-                (goal_type, created) = GoalType.objects.get_or_create(name=goal_name)
-            else:
-                goal_type = GoalType.objects.get(name=goal_name)
+            (goal_type, created) = GoalType.objects.get_or_create(name=goal_name)
 
             goal_record = GoalRecord.objects.create(
                 goal_type=goal_type, anonymous_visitor=anonymous_visitor
@@ -56,6 +52,8 @@ class GoalRecord(models.Model):
             goal_recorded.send(sender=cls, goal_record=goal_record,
                                experiment_user=experiment_user)
             return goal_record
+        else:
+            return
 
     @classmethod
     def record(cls, goal_name, experiment_user):
