@@ -59,7 +59,7 @@ everything right from your templates, there's no need for you to ever create you
     url(r'^split/', include('easy_split.urls')),
     ```
 
-#### Usage
+#### Basic Usage
 
 4. Assign your visitors to experimental groups by wrapping your views with this decorator:
 
@@ -67,7 +67,8 @@ everything right from your templates, there's no need for you to ever create you
     from easy_split.decorators import set_experiment_user
 
     @set_experiment_user
-    return render_to_response('split_me.html', {}, context_instance=RequestContext(request))
+    def landing_page(request):
+        return render_to_response('split_me.html', {}, context_instance=RequestContext(request))
     ```
 
 5. Include the necessary bot-excluding JavaScript in your base HTML. No jQuery is required!:
@@ -112,6 +113,45 @@ everything right from your templates, there's no need for you to ever create you
     ```
 
     to generate your reports, then browse over to **/admin/split/** to see your reports!
+
+
+#### Programatic Usage
+
+**django-easy-split** can also be used directly in your Django views rather than in your templates. This is useful if you're testing whole features, and not just copy or style changes.
+
+There are two important bits here: testing users and recording results.
+
+To split and route your experimental users, 
+
+```python
+from easy_split.models import Experiment
+from easy_split.utils import WebUser
+from easy_split.decorators import set_experiment_user
+
+@set_experiment_user
+def landing_page(request):
+    if Experiment.test("my_experiment_name", WebUser(request)):
+        return render_to_response('new_landing.html', {}, context_instance=RequestContext(request))
+    else:
+        return render_to_response('landing.html', {}, context_instance=RequestContext(request))
+```
+
+Then, you'll want to record the records of events which pass the test:
+
+```python
+from easy_split.models import GoalRecord
+from easy_split.utils import WebUser
+
+def conversion_page(request):
+
+    # Record the converstion
+    GoalRecord.record("my_experiment_name", WebUser(request))
+
+    return render_to_response('success.html', {}, context_instance=RequestContext(request))
+
+```
+
+And that's it!
 
 
 ## Origins
