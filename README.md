@@ -114,6 +114,11 @@ everything right from your templates, there's no need for you to ever create you
 
     to generate your reports, then browse over to **/admin/split/** to see your reports!
 
+    You can also update specific reports by name:
+    
+    ```python
+    python manage.py update_experiment_reports experiment_name
+    ```
 
 #### Programatic Usage
 

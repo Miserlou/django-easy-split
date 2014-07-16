@@ -149,9 +149,14 @@ class BaseReportGenerator(object):
     def __init__(self, report_model_class):
         self.report_model_class = report_model_class
     
-    def generate_all_daily_reports(self):
+    def generate_all_daily_reports(self, name=None):
         """ Generates all missing reports up until yesterday """
-        experiments = Experiment.objects.filter(start_date__isnull=False)
+
+        if name:
+            experiments = Experiment.objects.filter(start_date__isnull=False, name=name)
+        else:
+            experiments = Experiment.objects.filter(start_date__isnull=False)
+
         yesterday = (datetime.today() - timedelta(days=1)).date()
         for experiment in experiments:
             start_date = experiment.start_date
@@ -166,7 +171,6 @@ class BaseReportGenerator(object):
                     daily_report = self.generate_daily_report_for_experiment(
                         experiment=experiment, report_date=current_date)
                 current_date = current_date + timedelta(days=1)
-    
 
 class ConversionReportGenerator(BaseReportGenerator):
     def __init__(self, goal_type_conversion_calculator=calculate_goal_type_conversion,
