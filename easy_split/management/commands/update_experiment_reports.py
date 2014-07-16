@@ -24,8 +24,8 @@ class Command(BaseCommand):
         engagement_calculator = getattr(settings, 'LEAN_ENGAGEMENT_CALCULATOR', None)
         if engagement_calculator:
             engagement_calculator = _load_function(engagement_calculator)()
-            EngagementReportGenerator(engagement_score_calculator=engagement_calculator).generate_all_daily_reports()
-        ConversionReportGenerator().generate_all_daily_reports()
+            EngagementReportGenerator(engagement_score_calculator=engagement_calculator).generate_all_daily_reports(name)
+        ConversionReportGenerator().generate_all_daily_reports(name)
 
 def _load_function(fully_qualified_name):
     i = fully_qualified_name.rfind('.')
