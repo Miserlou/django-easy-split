@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 urlpatterns = patterns('',
     url(r'^goal/(?P<goal_name>.*)$', 'easy_split.views.record_experiment_goal'),
