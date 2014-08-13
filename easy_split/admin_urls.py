@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls.defaults import *
+try:
+    from django.conf.urls import patterns, include, url
+except ImportError:
+    from django.conf.urls.defaults import patterns, include, url
 from django.contrib.admin.views.decorators import staff_member_required
 
 from .views import experiment_details, list_experiments
